@@ -29,8 +29,8 @@ namespace AsynchronousClient
                 if (ipAddress == null)
                     throw new Exception("No IPv4 address for server");
                 client = new TcpClient();
-                client.Connect(ipAddress, port); // Connect
                 Console.WriteLine("Connect to server " + ipAddress + " on port " + port);
+                client.Connect(ipAddress, port); //Connect
                 NetworkStream networkStream = client.GetStream();
                 writer = new StreamWriter(networkStream);
                 reader = new StreamReader(networkStream);

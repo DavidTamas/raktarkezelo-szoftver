@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
-namespace SocketServer
+namespace raktarkezelo
 {
     public class AsyncService
     {
@@ -28,7 +28,7 @@ namespace SocketServer
         {
             TcpListener listener = new TcpListener(this.ipAddress, this.port);
             listener.Start();
-            Console.Write("Test socket service is now running");
+            Console.Write("Warehouse Management service is now running");
             Console.WriteLine(" " + this.ipAddress + " on port " + this.port);
             Console.WriteLine("Hit <enter> to stop service\n");
             while (true)
@@ -63,7 +63,7 @@ namespace SocketServer
                     if (requestStr != null)
                     {
                         CommObject request = serializer.Deserialize<CommObject>(requestStr);
-                        Console.WriteLine("Received service request: " + request);
+                        Console.WriteLine("Received service request: " + request + " (from " + clientEndPoint + ")");
                         CommObject response = Response(request);
                         Console.WriteLine("Computed response is: " + response + "\n");
                         await writer.WriteLineAsync(serializer.Serialize(response));
@@ -87,7 +87,7 @@ namespace SocketServer
         }
         private static CommObject Response(CommObject request)
         {
-            CommObject response = new CommObject(request.Message + " (Server)");
+            CommObject response = new CommObject(request.Message.Length + " (Server)");
             return response;
         }
     }

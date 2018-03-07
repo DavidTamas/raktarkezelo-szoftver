@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FF1C6DD7-023C-4CC1-8B34-80245734775F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>SocketServer</RootNamespace>
-    <AssemblyName>SocketServer</AssemblyName>
+    <RootNamespace>raktarkezelo</RootNamespace>
+    <AssemblyName>raktarkezelo-s</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

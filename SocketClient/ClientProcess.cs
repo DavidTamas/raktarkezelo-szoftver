@@ -10,16 +10,17 @@ namespace ClientProcess
         public Process() { }
         public void ReadAndWrite()
         {
-            string data = Console.ReadLine();
-            while (data != "Bye")
+            Console.WriteLine("Enter requests, one per line. Enter \"Q\" to exit.\n");
+            string input = Console.ReadLine();
+            while (input != "Q")
             {
-                CommObject commObject = new CommObject(data);
+                CommObject request = new CommObject(input);
 
-                Task<CommObject> tsResponse = SocketClient.SendRequest(commObject);
+                Task<CommObject> tsResponse = SocketClient.SendRequest(request);
                 Console.WriteLine("Sent request, waiting for response");
                 CommObject dResponse = tsResponse.Result;
                 Console.WriteLine("Received response: " + dResponse);
-                data = Console.ReadLine();
+                input = Console.ReadLine();
             }
         }
     }
