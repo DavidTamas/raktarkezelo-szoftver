@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "raktarkezelo-k", "SocketClient\raktarkezelo-k.csproj", "{1FAF8D72-3D68-4129-9FDD-A45EFDE8E16E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "raktarkezelo-k", "raktarkezelo-k\raktarkezelo-k.csproj", "{1FAF8D72-3D68-4129-9FDD-A45EFDE8E16E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "raktarkezelo-s", "SocketServer\raktarkezelo-s.csproj", "{FF1C6DD7-023C-4CC1-8B34-80245734775F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "raktarkezelo-s", "raktarkezelo-s\raktarkezelo-s.csproj", "{FF1C6DD7-023C-4CC1-8B34-80245734775F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
