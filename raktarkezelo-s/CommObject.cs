@@ -7,14 +7,18 @@ namespace Communication
     [Serializable]
     public class CommObject
     {
+        public char Type { get; set; }
+        public Object Obj { get; set; }
         public string Message { get; set; }
         public DateTime Date { get; set; }
 
         public CommObject() { }
-        public CommObject(string msg)
+        public CommObject(char type, Object obj, string msg)
         {
-            this.Message = msg;
-            this.Date = DateTime.Now;
+            Type = type;
+            Obj = obj;
+            Message = msg;
+            Date = DateTime.Now;
         }
 
         public override string ToString()

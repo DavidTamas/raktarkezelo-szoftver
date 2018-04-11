@@ -16,6 +16,7 @@ namespace raktarkezelo
     {
         private IPAddress ipAddress;
         private int port;
+
         public AsyncService(int port)
         {
             this.port = port;
@@ -24,6 +25,7 @@ namespace raktarkezelo
             if (this.ipAddress == null)
                 throw new Exception("No IPv4 address for server");
         }
+
         public async void Run()
         {
             TcpListener listener = new TcpListener(this.ipAddress, this.port);
@@ -44,6 +46,18 @@ namespace raktarkezelo
                 }
             }
         }
+
+        private bool Execute(char command, Object obj)
+        {
+            bool successful = false;
+
+            if (command == 'J') 
+                successful = ClientController.NewImportNeed(obj);
+            else if (command == 'F')
+                successful = ClientController.NewExportNeed(obj);
+            return successful;
+        }
+
         private async Task Process(TcpClient tcpClient)
         {
             string clientEndPoint = tcpClient.Client.RemoteEndPoint.ToString();
@@ -64,7 +78,8 @@ namespace raktarkezelo
                     {
                         CommObject request = serializer.Deserialize<CommObject>(requestStr);
                         Console.WriteLine("Received service request: " + request + " (from " + clientEndPoint + ")");
-                        CommObject response = Response(request);
+                        bool successful = Execute(request.Type, request.Obj);
+                        CommObject response = Response(request, successful);
                         Console.WriteLine("Computed response is: " + response + "\n");
                         await writer.WriteLineAsync(serializer.Serialize(response));
                     }
@@ -85,9 +100,15 @@ namespace raktarkezelo
                 Console.WriteLine("Connection closed, client: " + clientEndPoint);
             }
         }
-        private static CommObject Response(CommObject request)
+
+        private static CommObject Response(CommObject request, bool successful)
         {
-            CommObject response = new CommObject(request.Message.Length + " (Server)");
+            string result;
+            if (successful)
+                result = "Successful (Server)";
+            else
+                result = "FAILED (Server)";
+            CommObject response = new CommObject('R', null, result);
             return response;
         }
     }

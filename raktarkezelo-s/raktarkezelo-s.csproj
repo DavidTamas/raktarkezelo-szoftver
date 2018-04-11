@@ -43,10 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client.cs" />
+    <Compile Include="ClientController.cs" />
     <Compile Include="CommObject.cs" />
+    <Compile Include="EventLog.cs" />
+    <Compile Include="Goods.cs" />
+    <Compile Include="Export.cs" />
+    <Compile Include="Import.cs" />
+    <Compile Include="ExportNeed.cs" />
+    <Compile Include="ImportNeed.cs" />
+    <Compile Include="Inventory.cs" />
+    <Compile Include="Moving.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerService.cs" />
+    <Compile Include="Warehouse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
