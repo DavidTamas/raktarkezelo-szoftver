@@ -64,7 +64,7 @@ namespace AsynchronousClient
             }
             catch (Exception ex)
             {
-                return new CommObject(ex.Message);
+                return new CommObject('0', '0', ex.Message);
             }
         }
     }

@@ -19,20 +19,18 @@ namespace raktarkezelo
         public Moving() { }
         public Moving(char type, Import import, ExportNeed exportNeed)
         {
-            ID = ++CurrentID;
+            ID = CurrentID++;
             Type = type;
             Time = DateTime.Now;
             if (Type == 'I')
             {
                 Import = import;
                 ExportNeed = null;
-                Inventory.Instance.AddGoods(Import.ImportNeed.Goods);
             }
             else if (Type == 'E')
             {
                 ExportNeed = exportNeed;
                 Import = null;
-                Inventory.Instance.RemoveGoods(ExportNeed.Goods);
             }
             else if (Type == 'M')
             {

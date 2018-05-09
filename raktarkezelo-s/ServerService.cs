@@ -47,14 +47,27 @@ namespace raktarkezelo
             }
         }
 
-        private bool Execute(char command, Object obj)
+        private bool Execute(char usertype, char command, string message)
         {
             bool successful = false;
-
-            if (command == 'J') 
-                successful = ClientController.NewImportNeed(obj);
-            else if (command == 'F')
-                successful = ClientController.NewExportNeed(obj);
+            if (usertype == 'C')
+            {
+                if (command == 'I')
+                    successful = ClientController.Instance.NewImportNeed(message);
+                else if (command == 'E')
+                    successful = ClientController.Instance.NewExportNeed(message);
+            }
+            else if (usertype == 'K')
+            {
+                if (command == 'I')
+                    successful = KeeperController.Instance.NewImport(message);
+                else if (command == 'M')
+                    successful = KeeperController.Instance.NewMoving(message);
+                else if (command == 'J')
+                    successful = KeeperController.Instance.ListImportNeeds();
+                else if (command == 'K')
+                    successful = KeeperController.Instance.ListImports();
+            }
             return successful;
         }
 
@@ -77,8 +90,8 @@ namespace raktarkezelo
                     if (requestStr != null)
                     {
                         CommObject request = serializer.Deserialize<CommObject>(requestStr);
-                        Console.WriteLine("Received service request: " + request + " (from " + clientEndPoint + ")");
-                        bool successful = Execute(request.Type, request.Obj);
+                        Console.WriteLine("Received service request: " + request.Type + ": " + request + " (from " + request.UserType + ": " + clientEndPoint + ")");
+                        bool successful = Execute(request.UserType, request.Type, request.Message);
                         CommObject response = Response(request, successful);
                         Console.WriteLine("Computed response is: " + response + "\n");
                         await writer.WriteLineAsync(serializer.Serialize(response));
@@ -97,6 +110,7 @@ namespace raktarkezelo
                 {                    
                     tcpClient.Close();
                 }
+                Console.WriteLine(ex.InnerException.Message + " -> " + ex.Message);
                 Console.WriteLine("Connection closed, client: " + clientEndPoint);
             }
         }
@@ -108,7 +122,7 @@ namespace raktarkezelo
                 result = "Successful (Server)";
             else
                 result = "FAILED (Server)";
-            CommObject response = new CommObject('R', null, result);
+            CommObject response = new CommObject('S', 'R', result);
             return response;
         }
     }

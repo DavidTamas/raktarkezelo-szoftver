@@ -20,7 +20,7 @@ namespace raktarkezelo
         public Goods() { }
         public Goods(Client client, string description, int amount, bool requiresCooling)
         {
-            ID = ++CurrentID;
+            ID = CurrentID++;
             Client = client;
             Description = description;
             Amount = amount;

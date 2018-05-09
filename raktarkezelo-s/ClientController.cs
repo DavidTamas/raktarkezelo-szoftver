@@ -8,26 +8,41 @@ namespace raktarkezelo
 {
     class ClientController
     {
-        public bool NewImportNeed(ImportNeed need)
+        private static readonly ClientController instance = new ClientController();
+        public static ClientController Instance
+        {
+            get { return instance; }
+        }
+
+        private ClientController() { }
+
+        public bool NewImportNeed(string message)
         {
             bool successful = false;
+
+            //parsing message
+            List<string> parameters = message.Split('~').ToList();
+            string email = parameters[0];
+            string description = parameters[1];
+            int amount = int.Parse(parameters[2]);
+            bool requiresCooling = bool.Parse(parameters[3]);
+            DateTime importTime = DateTime.Parse(parameters[4]);
+            DateTime exportTime = DateTime.Parse(parameters[5]);
+
+            //generating objects
+            Goods goods = new Goods(Warehouse.Instance.Clients[email], description, amount, requiresCooling);
+            ImportNeed need = new ImportNeed(goods, importTime, exportTime);
+            EventContainer.Instance.AddImportNeed(need);
             Warehouse.Instance.Clients[need.Goods.Client.Email].AddGoods(need.Goods);
-            EventLog.Instance.AddImportNeed(need);
-            Import import = new Import(need);
-            EventLog.Instance.AddImport(import);
-            EventLog.Instance.AddMoving(new Moving('I', import, null));
-            Inventory.Instance.PrintAllGoods();
+
             successful = true;
             return successful;
         }
 
-        public bool NewExportNeed(ExportNeed need)
+        public bool NewExportNeed(string message)
         {
             bool successful = false;
-            EventLog.Instance.AddExportNeed(need);
-            EventLog.Instance.AddMoving(new Moving('E', null, need));
-            EventLog.Instance.AddExport(new Export(need));
-            Inventory.Instance.PrintAllGoods();
+
             successful = true;
             return successful;
         }

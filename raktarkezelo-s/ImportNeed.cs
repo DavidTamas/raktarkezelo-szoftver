@@ -19,7 +19,7 @@ namespace raktarkezelo
         public ImportNeed() { }
         public ImportNeed(Goods goods, DateTime beginTime, DateTime endTime)
         {
-            ID = ++CurrentID;
+            ID = CurrentID++;
             Time = DateTime.Now;
             Goods = goods;
             BeginTime = beginTime;

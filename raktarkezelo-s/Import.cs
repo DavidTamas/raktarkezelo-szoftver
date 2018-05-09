@@ -17,7 +17,7 @@ namespace raktarkezelo
         public Import() { }
         public Import(ImportNeed importNeed)
         {
-            ID = ++CurrentID;
+            ID = CurrentID++;
             ImportNeed = importNeed;
             Time = DateTime.Now;
             ImportNeed.Goods.IsStored = true;

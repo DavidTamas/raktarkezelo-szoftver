@@ -18,7 +18,7 @@ namespace raktarkezelo
         public ExportNeed() { }
         public ExportNeed(Goods goods, DateTime exportTime)
         {
-            ID = ++CurrentID;
+            ID = CurrentID++;
             Time = DateTime.Now;
             Goods = goods;
             ExportTime = exportTime;

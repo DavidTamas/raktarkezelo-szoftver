@@ -32,6 +32,7 @@ namespace raktarkezelo
 
         public void PrintAllGoods()
         {
+            Console.WriteLine("-- INVENTORY --");
             Console.WriteLine("-- Normal Goods: " + GoodsAmount + " / " + TotalSlots + " --");
             Console.WriteLine("ID\tClient\tDescription Amount\tCooling");
             foreach(var i in CurrentGoods)
