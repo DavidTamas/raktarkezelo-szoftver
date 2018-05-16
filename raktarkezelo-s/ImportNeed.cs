@@ -26,9 +26,9 @@ namespace raktarkezelo
             EndTime = endTime;
         }
 
-        public void Print()
+        public string Print()
         {
-            Console.WriteLine(ID + "\t" + Time + "\t" + Goods.ID + "\t" + Goods.Description + "\t" + Goods.Amount + "\t" + BeginTime + "\t" + EndTime);
+            return ID + "\t" + Time + "\t" + Goods.ID + "\t" + Goods.Description + "\t" + Goods.Amount + "\t" + BeginTime + "\t" + EndTime +"\n";
         }
     }
 }

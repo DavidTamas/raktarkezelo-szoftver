@@ -28,14 +28,14 @@ namespace raktarkezelo
             IsStored = false;
         }
 
-        public void Print()
+        public string Print()
         {
-            Console.WriteLine(ID + "\t" + Description + "\t" + Amount + "\t" + RequiresCooling + "\t" + IsStored);
+            return ID + "\t" + Description + "\t" + Amount + "\t" + RequiresCooling + "\t" + IsStored + "\n";
         }
 
-        public void PrintWithClient()
+        public string PrintWithClient()
         {
-            Console.WriteLine(ID + "\t" + Client.Email + "\t" + Description + "\t" + Amount + "\t" + RequiresCooling);
+            return ID + "\t" + Client.Email + "\t" + Description + "\t" + Amount + "\t" + RequiresCooling + "\n";
         }
     }
 }

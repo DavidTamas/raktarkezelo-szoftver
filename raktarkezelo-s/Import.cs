@@ -23,9 +23,9 @@ namespace raktarkezelo
             ImportNeed.Goods.IsStored = true;
         }
 
-        public void Print()
+        public string Print()
         {
-            Console.WriteLine(ID + "\t" + ImportNeed.ID + "\t" + ImportNeed.Goods.ID + "\t" + ImportNeed.Goods.Description + "\t" + ImportNeed.Goods.Amount + "\t" + Time);
+            return ID + "\t" + ImportNeed.ID + "\t" + ImportNeed.Goods.ID + "\t" + ImportNeed.Goods.Description + "\t" + ImportNeed.Goods.Amount + "\t" + Time + "\n";
         }
     }
 }

@@ -53,22 +53,30 @@ namespace raktarkezelo
             Movings.Add(moving);
         }
 
-        public void PrintImportNeeds()
+        public string PrintImportNeeds()
         {
-            Console.WriteLine("-- Import Needs: --");
+            string print = "";
+            print += "-- Import Needs: --\n";
+            print += "ID\tTime\tGoodsID\tDescription\tAmount\tBeginTime\tEndTime\n";
             foreach(var need in ImportNeeds)
             {
-                need.Print();
+                print += need.Print();
             }
+            print += "\n";
+            return print;
         }
 
-        public void PrintImports()
+        public string PrintImports()
         {
-            Console.WriteLine("-- Imports: --");
+            string print = "";
+            print += "-- Imports: --\n";
+            print += "ID\tINeedID\tGoodsID\tDescription\tAmount\tTime\n";
             foreach (var import in Imports)
             {
-                import.Print();
+                print += import.Print();
             }
+            print += "\n";
+            return print;
         }
     }
 }

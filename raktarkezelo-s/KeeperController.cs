@@ -16,7 +16,7 @@ namespace raktarkezelo
 
         private KeeperController() { }
 
-        public bool NewImport(string message)
+        public KeyValuePair<bool, string> NewImport(string message)
         {
             bool successful = false;
 
@@ -29,15 +29,16 @@ namespace raktarkezelo
             Import import = new Import(EventContainer.Instance.ImportNeeds[needID]);
             EventContainer.Instance.Imports.Add(import);
             Warehouse.Instance.Keepers[email].TruckStand.AddGoods(import.ImportNeed.Goods);
+            import.ImportNeed.Goods.IsStored = true;
 
             //output
-            Warehouse.Instance.Keepers[email].TruckStand.Print();
+            message = Warehouse.Instance.Keepers[email].TruckStand.Print();
 
             successful = true;
-            return successful;
+            return new KeyValuePair<bool, string>(successful, message);
         }
 
-        public bool NewMoving(string message)
+        public KeyValuePair<bool, string> NewMoving(string message)
         {
             bool successful = false;
 
@@ -67,27 +68,27 @@ namespace raktarkezelo
             }
 
             //output
-            Warehouse.Instance.Keepers[email].TruckStand.Print();
-            Inventory.Instance.PrintAllGoods();
+            message = Warehouse.Instance.Keepers[email].TruckStand.Print();
+            message += Inventory.Instance.PrintAllGoods();
 
             successful = true;
-            return successful;
+            return new KeyValuePair<bool, string>(successful, message);
         }
 
-        public bool ListImportNeeds()
+        public KeyValuePair<bool, string> ListImportNeeds()
         {
             bool successful = false;
-            EventContainer.Instance.PrintImportNeeds();
+            string message = EventContainer.Instance.PrintImportNeeds();
             successful = true;
-            return successful;
+            return new KeyValuePair<bool, string>(successful, message);
         }
 
-        public bool ListImports()
+        public KeyValuePair<bool, string> ListImports()
         {
             bool successful = false;
-            EventContainer.Instance.PrintImports();
+            string message = EventContainer.Instance.PrintImports();
             successful = true;
-            return successful;
+            return new KeyValuePair<bool, string>(successful, message);
         }
     }
 }

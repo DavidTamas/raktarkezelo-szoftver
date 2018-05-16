@@ -47,28 +47,50 @@ namespace raktarkezelo
             }
         }
 
-        private bool Execute(char usertype, char command, string message)
+        private KeyValuePair<bool, string> Execute(char usertype, char command, string message)
         {
             bool successful = false;
             if (usertype == 'C')
             {
                 if (command == 'I')
+                {
                     successful = ClientController.Instance.NewImportNeed(message);
+                    message = "";
+                }
                 else if (command == 'E')
+                {
                     successful = ClientController.Instance.NewExportNeed(message);
+                    message = "";
+                }
             }
             else if (usertype == 'K')
             {
                 if (command == 'I')
-                    successful = KeeperController.Instance.NewImport(message);
+                {
+                    KeyValuePair<bool, string> pair = KeeperController.Instance.NewImport(message);
+                    successful = pair.Key;
+                    message = pair.Value;
+                }
                 else if (command == 'M')
-                    successful = KeeperController.Instance.NewMoving(message);
+                {
+                    KeyValuePair<bool, string> pair = KeeperController.Instance.NewMoving(message);
+                    successful = pair.Key;
+                    message = pair.Value;
+                }
                 else if (command == 'J')
-                    successful = KeeperController.Instance.ListImportNeeds();
+                {
+                    KeyValuePair<bool, string> pair = KeeperController.Instance.ListImportNeeds();
+                    successful = pair.Key;
+                    message = pair.Value;
+                }
                 else if (command == 'K')
-                    successful = KeeperController.Instance.ListImports();
+                {
+                    KeyValuePair<bool, string> pair = KeeperController.Instance.ListImports();
+                    successful = pair.Key;
+                    message = pair.Value;
+                }
             }
-            return successful;
+            return new KeyValuePair<bool, string>(successful, message);
         }
 
         private async Task Process(TcpClient tcpClient)
@@ -91,8 +113,10 @@ namespace raktarkezelo
                     {
                         CommObject request = serializer.Deserialize<CommObject>(requestStr);
                         Console.WriteLine("Received service request: " + request.Type + ": " + request + " (from " + request.UserType + ": " + clientEndPoint + ")");
-                        bool successful = Execute(request.UserType, request.Type, request.Message);
-                        CommObject response = Response(request, successful);
+                        KeyValuePair<bool, string> pair = Execute(request.UserType, request.Type, request.Message);
+                        bool successful = pair.Key;
+                        string message = pair.Value;
+                        CommObject response = Response(request, successful, message);
                         Console.WriteLine("Computed response is: " + response + "\n");
                         await writer.WriteLineAsync(serializer.Serialize(response));
                     }
@@ -115,11 +139,13 @@ namespace raktarkezelo
             }
         }
 
-        private static CommObject Response(CommObject request, bool successful)
+        private static CommObject Response(CommObject request, bool successful, string message)
         {
             string result;
             if (successful)
-                result = "Successful (Server)";
+            {
+                result = "Successful (Server)" + "\n\n" + message;
+            }
             else
                 result = "FAILED (Server)";
             CommObject response = new CommObject('S', 'R', result);

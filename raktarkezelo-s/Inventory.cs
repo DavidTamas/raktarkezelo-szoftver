@@ -30,18 +30,20 @@ namespace raktarkezelo
             CoolGoodsAmount = 0;
         }
 
-        public void PrintAllGoods()
+        public string PrintAllGoods()
         {
-            Console.WriteLine("-- INVENTORY --");
-            Console.WriteLine("-- Normal Goods: " + GoodsAmount + " / " + TotalSlots + " --");
-            Console.WriteLine("ID\tClient\tDescription Amount\tCooling");
+            string print = "";
+            print += "-- INVENTORY --\n";
+            print += "-- Normal Goods: " + GoodsAmount + " / " + TotalSlots + " --\n";
+            print += "ID\tClient\tDescription Amount\tCooling\n";
             foreach(var i in CurrentGoods)
-                i.PrintWithClient();
-            Console.WriteLine("-- Cooled Goods: " + CoolGoodsAmount + " / " + TotalCoolSlots + " --");
-            Console.WriteLine("ID\tClient\tDescription Amount\tCooling");
+                print += i.PrintWithClient();
+            print += "-- Cooled Goods: " + CoolGoodsAmount + " / " + TotalCoolSlots + " --\n";
+            print += "ID\tClient\tDescription Amount\tCooling\n";
             foreach (var i in CurrentCoolGoods)
-                i.PrintWithClient();
-            Console.WriteLine();
+                print += i.PrintWithClient();
+            print += "\n";
+            return print;
         }
 
         public void AddGoods(Goods goods)

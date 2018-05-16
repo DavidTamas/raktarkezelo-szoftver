@@ -28,16 +28,18 @@ namespace raktarkezelo
             Goods = null;
         }
 
-        public void Print()
+        public string Print()
         {
-            Console.WriteLine("-- Truck Stand " + ID + ": --");
+            string print = "";
+            print += "-- Truck Stand " + ID + ": --\n";
             if (Goods != null)
             {
-                Console.WriteLine("ID\tClient\tDescription Amount\tCooling");
-                Goods.PrintWithClient();
+                print += "ID\tClient\tDescription Amount\tCooling\n";
+                print += Goods.PrintWithClient();
             }
             else
-                Console.WriteLine("No goods");
+                print += "No goods\n";
+            return print;
         }
     }
 }

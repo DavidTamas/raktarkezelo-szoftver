@@ -23,7 +23,7 @@ namespace Communication
 
         public override string ToString()
         {
-            return Message + " [" + Date.ToString() + "]";
+            return "[" + Date.ToString() + "] " + Message;
         }
     }
 }
