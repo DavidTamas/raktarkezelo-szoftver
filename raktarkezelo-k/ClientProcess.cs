@@ -117,6 +117,7 @@ namespace ClientProcess
                 Console.WriteLine();
                 Console.WriteLine("1 - Submit new Import Need");
                 Console.WriteLine("2 - Submit new Export Need");
+                Console.WriteLine("3 - View list of Goods");
                 Console.WriteLine("0 - Quit");
                 int input = int.Parse(Console.ReadLine());
                 switch (input)
@@ -129,6 +130,9 @@ namespace ClientProcess
                         break;
                     case 2:
                         NewExport();
+                        break;
+                    case 3:
+                        ListGoods();
                         break;
                     default:
                         break;
@@ -154,6 +158,13 @@ namespace ClientProcess
         }
 
         public void NewExport() { }
+
+        public void ListGoods()
+        {
+            string input = "";
+            input += "TestClient";
+            NewRequest('C', 'G', input);
+        }
 
         public void KeeperMenu()
         {
@@ -245,7 +256,7 @@ namespace ClientProcess
             }
             else if (type == 'E')
             {
-
+                //request list of export needs here
                 Console.WriteLine("Enter the ID of the fulfilled Export Need.");
                 input += "~" + Console.ReadLine();
                 NewRequest('K', 'M', input);

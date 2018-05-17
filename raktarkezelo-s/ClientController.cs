@@ -46,5 +46,13 @@ namespace raktarkezelo
             successful = true;
             return successful;
         }
+
+        public KeyValuePair<bool, string> ListGoods(string message)
+        {
+            bool succesful = false;
+            message = Warehouse.Instance.Clients[message].PrintGoods();
+            succesful = true;
+            return new KeyValuePair<bool, string>(succesful, message);
+        }
     }
 }

@@ -26,9 +26,18 @@ namespace raktarkezelo
             Goods.AddLast(goods);
         }
 
-        public void Print()
+        public string Print()
         {
-            Console.WriteLine(Email + "\t" + Name);
+            return Email + "\t" + Name;
+        }
+
+        public string PrintGoods()
+        {
+            string print = "";
+            print += "ID\tDescription Amount\tCooling\tStored\n";
+            foreach (var i in Goods)
+                print += i.Print();
+            return print;
         }
     }
 }

@@ -62,6 +62,12 @@ namespace raktarkezelo
                     successful = ClientController.Instance.NewExportNeed(message);
                     message = "";
                 }
+                else if (command == 'G')
+                {
+                    KeyValuePair<bool, string> pair = ClientController.Instance.ListGoods(message);
+                    successful = pair.Key;
+                    message = pair.Value;
+                }
             }
             else if (usertype == 'K')
             {
