@@ -24,9 +24,9 @@ namespace raktarkezelo
             ExportTime = exportTime;
         }
 
-        public void Print()
+        public string Print()
         {
-            Console.WriteLine(ID + "\t" + Time + "\t" + Goods.ID + "\t" + Goods.Description + "\t" + Goods.Amount + "\t" + ExportTime);
+            return ID + "\t" + Time + "\t" + Goods.ID + "\t" + Goods.Description + "\t" + Goods.Amount + "\t" + ExportTime + "\n";
         }
     }
 }

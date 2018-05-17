@@ -66,6 +66,19 @@ namespace raktarkezelo
             return print;
         }
 
+        public string PrintExportNeeds()
+        {
+            string print = "";
+            print += "-- Export Needs: --\n";
+            print += "ID\tTime\tGoodsID\tDescription\tAmount\tExportTime\n";
+            foreach (var need in ExportNeeds)
+            {
+                print += need.Print();
+            }
+            print += "\n";
+            return print;
+        }
+
         public string PrintImports()
         {
             string print = "";

@@ -38,6 +38,28 @@ namespace raktarkezelo
             return new KeyValuePair<bool, string>(successful, message);
         }
 
+        public KeyValuePair<bool, string> NewExport(string message)
+        {
+            bool successful = false;
+
+            //parsing
+            List<string> parameters = message.Split('~').ToList();
+            string email = parameters[0];
+            int needID = int.Parse(parameters[1]);
+
+            //generating objects
+            Export export = new Export(EventContainer.Instance.ExportNeeds[needID]);
+            EventContainer.Instance.Exports.Add(export);
+            Warehouse.Instance.Keepers[email].TruckStand.RemoveGoods();
+            export.ExportNeed.Goods.IsStored = false;
+
+            //output
+            message = Warehouse.Instance.Keepers[email].TruckStand.Print();
+
+            successful = true;
+            return new KeyValuePair<bool, string>(successful, message);
+        }
+
         public KeyValuePair<bool, string> NewMoving(string message)
         {
             bool successful = false;
@@ -79,6 +101,14 @@ namespace raktarkezelo
         {
             bool successful = false;
             string message = EventContainer.Instance.PrintImportNeeds();
+            successful = true;
+            return new KeyValuePair<bool, string>(successful, message);
+        }
+
+        public KeyValuePair<bool, string> ListExportNeeds()
+        {
+            bool successful = false;
+            string message = EventContainer.Instance.PrintExportNeeds();
             successful = true;
             return new KeyValuePair<bool, string>(successful, message);
         }

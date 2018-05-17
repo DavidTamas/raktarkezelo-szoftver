@@ -43,6 +43,17 @@ namespace raktarkezelo
         {
             bool successful = false;
 
+            //parsing message
+            List<string> parameters = message.Split('~').ToList();
+            string email = parameters[0];
+            int goodsID = int.Parse(parameters[1]);
+            DateTime time = DateTime.Parse(parameters[2]);
+
+            //generating objects
+            Goods goods = Warehouse.Instance.Clients[email].Goods[goodsID];
+            ExportNeed need = new ExportNeed(goods, time);
+            EventContainer.Instance.AddExportNeed(need);
+
             successful = true;
             return successful;
         }

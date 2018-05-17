@@ -11,19 +11,19 @@ namespace raktarkezelo
     {
         public string Email { get; }
         public string Name { get; }
-        public LinkedList<Goods> Goods { get; private set; }
+        public SortedDictionary<int, Goods> Goods { get; private set; }
 
         public Client() { }
         public Client(string email, string name)
         {
             Email = email;
             Name = name;
-            Goods = new LinkedList<Goods>();
+            Goods = new SortedDictionary<int, Goods>();
         }
 
         public void AddGoods(Goods goods)
         {
-            Goods.AddLast(goods);
+            Goods.Add(goods.ID, goods);
         }
 
         public string Print()
@@ -36,7 +36,7 @@ namespace raktarkezelo
             string print = "";
             print += "ID\tDescription Amount\tCooling\tStored\n";
             foreach (var i in Goods)
-                print += i.Print();
+                print += i.Value.Print();
             return print;
         }
     }

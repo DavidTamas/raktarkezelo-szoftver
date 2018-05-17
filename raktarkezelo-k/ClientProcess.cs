@@ -157,7 +157,17 @@ namespace ClientProcess
             NewRequest('C', 'I', input);
         }
 
-        public void NewExport() { }
+        public void NewExport()
+        {
+            string input = "";
+            input += "TestClient";
+            NewRequest('C', 'G', input);
+            Console.WriteLine("Enter the ID of the Goods you would like to export.");
+            input += "~" + Console.ReadLine();
+            Console.WriteLine("Enter the desired date and time of the export. Eg. 2018.01.01. 12:00");
+            input += "~" + Console.ReadLine();
+            NewRequest('C', 'E', input);
+        }
 
         public void ListGoods()
         {
@@ -208,7 +218,15 @@ namespace ClientProcess
             NewRequest('K', 'I', input);
         }
 
-        public void RegisterExport() { }
+        public void RegisterExport()
+        {
+            string input = "";
+            input += "TestKeeper";
+            NewRequest('K', 'F', "TestKeeper");
+            Console.WriteLine("Enter the ID of the fulfilled Export Need.");
+            input += "~" + Console.ReadLine();
+            NewRequest('K', 'E', input);
+        }
 
         public void MovingMenu()
         {
@@ -256,7 +274,7 @@ namespace ClientProcess
             }
             else if (type == 'E')
             {
-                //request list of export needs here
+                NewRequest('K', 'F', "");
                 Console.WriteLine("Enter the ID of the fulfilled Export Need.");
                 input += "~" + Console.ReadLine();
                 NewRequest('K', 'M', input);

@@ -15,15 +15,15 @@ namespace raktarkezelo
         }
         public int TotalSlots { get; private set; }
         public int TotalCoolSlots { get; private set; }
-        public LinkedList<Goods> CurrentGoods { get; private set; }
-        public LinkedList<Goods> CurrentCoolGoods { get; private set; }
+        public SortedDictionary<int, Goods> CurrentGoods { get; private set; }
+        public SortedDictionary<int, Goods> CurrentCoolGoods { get; private set; }
         public int GoodsAmount { get; private set; }
         public int CoolGoodsAmount { get; private set; }
 
         private Inventory()
         {
-            CurrentGoods = new LinkedList<Goods>();
-            CurrentCoolGoods = new LinkedList<Goods>();
+            CurrentGoods = new SortedDictionary<int, Goods>();
+            CurrentCoolGoods = new SortedDictionary<int, Goods>();
 			TotalSlots = 120;
 			TotalCoolSlots = 60;
             GoodsAmount = 0;
@@ -37,11 +37,11 @@ namespace raktarkezelo
             print += "-- Normal Goods: " + GoodsAmount + " / " + TotalSlots + " --\n";
             print += "ID\tClient\tDescription Amount\tCooling\n";
             foreach(var i in CurrentGoods)
-                print += i.PrintWithClient();
+                print += i.Value.PrintWithClient();
             print += "-- Cooled Goods: " + CoolGoodsAmount + " / " + TotalCoolSlots + " --\n";
             print += "ID\tClient\tDescription Amount\tCooling\n";
             foreach (var i in CurrentCoolGoods)
-                print += i.PrintWithClient();
+                print += i.Value.PrintWithClient();
             print += "\n";
             return print;
         }
@@ -50,12 +50,12 @@ namespace raktarkezelo
         {
             if(!goods.RequiresCooling)
             {
-                CurrentGoods.AddLast(goods);
+                CurrentGoods.Add(goods.ID, goods);
                 GoodsAmount += goods.Amount;
             }
             else
             {
-                CurrentCoolGoods.AddLast(goods);
+                CurrentCoolGoods.Add(goods.ID, goods);
                 CoolGoodsAmount += goods.Amount;
             }
         }
@@ -64,12 +64,12 @@ namespace raktarkezelo
         {
             if(!goods.RequiresCooling)
             {
-                CurrentGoods.Remove(goods);
+                CurrentGoods.Remove(goods.ID);
                 GoodsAmount -= goods.Amount;
             }
             else
             {
-                CurrentCoolGoods.Remove(goods);
+                CurrentCoolGoods.Remove(goods.ID);
                 CoolGoodsAmount -= goods.Amount;
             }
         }

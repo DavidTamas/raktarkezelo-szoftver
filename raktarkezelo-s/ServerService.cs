@@ -77,6 +77,12 @@ namespace raktarkezelo
                     successful = pair.Key;
                     message = pair.Value;
                 }
+                else if (command == 'E')
+                {
+                    KeyValuePair<bool, string> pair = KeeperController.Instance.NewExport(message);
+                    successful = pair.Key;
+                    message = pair.Value;
+                }
                 else if (command == 'M')
                 {
                     KeyValuePair<bool, string> pair = KeeperController.Instance.NewMoving(message);
@@ -92,6 +98,12 @@ namespace raktarkezelo
                 else if (command == 'K')
                 {
                     KeyValuePair<bool, string> pair = KeeperController.Instance.ListImports();
+                    successful = pair.Key;
+                    message = pair.Value;
+                }
+                else if (command == 'F')
+                {
+                    KeyValuePair<bool, string> pair = KeeperController.Instance.ListExportNeeds();
                     successful = pair.Key;
                     message = pair.Value;
                 }
